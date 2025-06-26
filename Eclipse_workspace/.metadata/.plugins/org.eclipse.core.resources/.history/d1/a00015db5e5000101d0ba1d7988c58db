@@ -1,0 +1,75 @@
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+
+public class locators {
+
+	public static void main(String[] args) {
+		
+		//setting chromedriver
+		WebDriver driver = new ChromeDriver();
+		
+		//to enter the website
+		driver.get("https://rahulshettyacademy.com/locatorspractice/");
+		
+		//to maximize webpage
+		driver.manage().window().maximize();
+		
+		//to wait for 5 seconds before throwing error if element is not found on webpage
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		
+		driver.findElement(By.id("inputUsername")).sendKeys("Vamsi Akula");
+		driver.findElement(By.name("inputPassword")).sendKeys("bdsuibdbduibsdiu");
+		driver.findElement(By.className("signInBtn")).click();
+		
+		System.out.println(driver.findElement(By.cssSelector("p.error")).getText());
+		
+		driver.findElement(By.linkText("Forgot your password?")).click();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		driver.findElement(By.xpath("//input[@placeholder='Name']")).sendKeys("Vamsi Akula");
+		driver.findElement(By.cssSelector("input[placeholder='Email']")).sendKeys("vamsiakula@yahoo.com");
+		driver.findElement(By.cssSelector("input[placeholder='Email']")).clear();
+		driver.findElement(By.cssSelector("input[placeholder='Email']")).sendKeys("vamsiakula@gmail.com");
+		driver.findElement(By.xpath("//form/input[3]")).sendKeys("9256341523");
+		
+		driver.findElement(By.cssSelector(".reset-pwd-btn")).click();
+		
+		String infoMsg = driver.findElement(By.cssSelector(".infoMsg")).getText();
+		String pwd = infoMsg.split("'")[1].split("'")[0];
+		System.out.println(pwd);
+		
+		driver.findElement(By.xpath("//div[@class = 'forgot-pwd-btn-conainer']/button[1]")).click();
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		driver.findElement(By.cssSelector("input[id*='Username']")).sendKeys("Vamsi Akula");
+		driver.findElement(By.xpath("//input[contains(@name, 'Password')]")).sendKeys(pwd);
+		driver.findElement(By.cssSelector("div span input[value = 'rmbrUsername']")).click();
+		driver.findElement(By.xpath("//button[@class = 'submit signInBtn']")).click();
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String textOnFinalPage = driver.findElement(By.tagName("p")).getText();
+		Assert.assertEquals(textOnFinalPage, "You are successfully logged in.");
+	}
+
+}

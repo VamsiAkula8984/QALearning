@@ -1,0 +1,16 @@
+
+public class variablesAndDatatypes {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int n = 5;
+		String name = "vamsi";
+		char grade = 'A';
+		double percen = 100.00;
+		
+		System.out.println(name +" passed exam with " + grade + " and "  + percen +  " percentile out of " + n + " students present");
+		
+
+	}
+
+}
